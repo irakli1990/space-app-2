@@ -14,12 +14,14 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "paths": {
+      "shared-lib": ["dist/shared-lib/shared-lib", "dist/shared-lib"],
+      "dev-api/*": ["./projects/dev-api/*"],
+      "space-api/*": ["./projects/space-api/*"]
+    },
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
