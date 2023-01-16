@@ -36,6 +36,9 @@
                 "output": "assets"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/shared-styles"]
+            },
             "styles": ["projects/space-app/src/styles.scss"],
             "scripts": [],
             "serviceWorker": true,

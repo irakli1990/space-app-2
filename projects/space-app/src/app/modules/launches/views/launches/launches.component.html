@@ -1,0 +1,12 @@
+{{ queryParams$ | async | json }}
+
+<app-launches-search
+  *ngIf="queryParams$ | async as queryParams"
+  [params]="queryParams"
+  (paramsChange)="searchLaunches($event)"
+></app-launches-search>
+<app-launches-list
+  *ngIf="launches$ | async as launches"
+  [launches]="launches"
+  (launchDetailsUpdate)="updateLaunchDetails($event)"
+></app-launches-list>

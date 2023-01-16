@@ -15,9 +15,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
-      "shared-lib": ["dist/shared-lib/shared-lib", "dist/shared-lib"],
       "dev-api/*": ["./projects/dev-api/*"],
-      "space-api/*": ["./projects/space-api/*"]
+      "space-api/*": ["./projects/space-api/*"],
+      "shared-lib": ["dist/shared-lib"]
     },
     "target": "ES2022",
     "module": "ES2022",

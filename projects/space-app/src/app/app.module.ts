@@ -1,28 +1,42 @@
-import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { A2sCommModule } from 'a2s-comm';
+import { Observable } from 'rxjs';
+import { SharedLibModule } from 'shared-lib';
+import { AppConfigService } from 'space-api/services';
+import { API_URL } from 'space-api/tokens';
+import { AppConfig } from 'space-api/types';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { SharedLibModule } from 'projects/shared-lib/src/public-api';
-import { LaunchesListComponent } from './modules/launches/components/launches-list/launches-list.component';
+import { StartComponent } from './views/start/start.component';
+
+function appConfigInitializer(
+  appConfigService: AppConfigService
+): () => Observable<AppConfig> {
+  return () => appConfigService.getAppConfig();
+}
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, LaunchesListComponent],
+  declarations: [AppComponent, StartComponent],
   imports: [
+    A2sCommModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedLibModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
   ],
-  providers: [],
+  providers: [
+    { provide: API_URL, useValue: environment.apiUrl },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appConfigInitializer,
+      deps: [AppConfigService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
